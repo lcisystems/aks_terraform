@@ -1,0 +1,43 @@
+#drupal-values.yaml
+drupalUsername: <drupalUsername>
+drupalPassword: <yourpassword>
+drupalEmail: <drupalEmail>
+drupalDatabaseHost: <hostname>.mysql.database.azure.com
+drupalDatabaseUser: <drupalDatabaseUser>
+drupalDatabasePassword: 
+drupalDatabaseName: 
+
+mariadb:
+  enabled: false
+
+externalDatabase:
+  host: <hostname>.mysql.database.azure.com
+  user: <databaseusername>
+  password: <password>
+  database: <databasename>
+  port: 3306
+
+persistence:
+  enabled: true
+  storageClass: azurefile-csi
+  accessModes:
+    - ReadWriteOnce
+  size: 20Gi
+
+readinessProbe:
+  httpGet:
+    path: /user/login
+    port: http
+  initialDelaySeconds: 120
+  timeoutSeconds: 5
+  periodSeconds: 10
+  failureThreshold: 6
+
+livenessProbe:
+  httpGet:
+    path: /user/login
+    port: http
+  initialDelaySeconds: 120
+  timeoutSeconds: 5
+  periodSeconds: 10
+  failureThreshold: 6
